@@ -45,7 +45,7 @@ Convert the TotalSegmentator dataset to nnU-Net format using:
     python prepare_totalseg.py \
       --base_dir /path/to/Totalsegmentator_dataset_v201 \
       --nnunet_raw /path/to/nnUNet_raw \
-      --organ Pancreas \
+      --organ pancreas \
       --dataset_id 1
 
 This creates:
