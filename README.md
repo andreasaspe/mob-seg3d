@@ -4,7 +4,7 @@ This repository implements **Mixture-of-Bases** and **Single-Basis** covariance 
 
 <p align="center">
   <img src="figures/network_architecture.png" width="700"><br>
-  <em>Figure 1: Figure 1: Overview of the Mixture-of-Bases (MoB) model.</em>
+  <em>Figure 1: Overview of the Mixture-of-Bases (MoB) model.</em>
 </p>
 
 The code builds directly on the official nnU-Net implementation:
