@@ -51,6 +51,19 @@ Convert the TotalSegmentator dataset to nnU-Net format using:
 This creates:
 
     nnUNet_raw/Dataset001_TotalSegmentatorPancreas/
+    
+
+### Create data.json file
+
+Generate the nnU-Net `dataset.json` file using:
+
+    python make_dataset_json.py \
+      --root /path/to/nnUNet_raw/Dataset001_TotalSegmentatorPancreas \
+      --name Dataset001_TotalSegmentatorPancreas \
+      --labels background=0 pancreas=1
+
+This step defines the dataset metadata (modalities, labels, and train/test splits) required by nnU-Net.
+
 
 ### Set nnU-Net environment variables
 
