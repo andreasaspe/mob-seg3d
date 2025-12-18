@@ -85,7 +85,7 @@ Preprocess the dataset:
 
     nnUNetv2_preprocess -d <dataset_id> -c 3d_fullres -pl nnUNetResEncUNetLPlans -np 8
 
-Train the model (choose a fold):
+Train the model (choose a single fold - possible values are 0, 1, 2, 3 or 4):
 
     nnUNetv2_train <dataset_id> 3d_fullres <fold> -tr nnUNetTrainerNoMirroring -p nnUNetResEncUNetLPlans
 
