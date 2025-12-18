@@ -36,6 +36,7 @@ def process_subject(subj, base_dir, savepath_root, organ, new_orientation=("L", 
     seg_path = os.path.join(base_dir, subj, "segmentations", f"{organ}.nii.gz")
 
     if not os.path.exists(ct_path) or not os.path.exists(seg_path):
+        print(ct_path, seg_path)
         return f"Skipped {subj}: Missing files"
 
     seg_nib = nib.load(seg_path)
@@ -147,6 +148,8 @@ def main():
 
     organ = args.organ
     dataset_name_and_id = f"Dataset{args.dataset_id:03d}_TotalSegmentator{organ.capitalize()}"
+    
+    organ = args.organ.lower() # Make sure first letter is lowercase
 
     base_dir = args.base_dir
     nnunet_root = os.path.join(args.nnunet_raw, dataset_name_and_id)
