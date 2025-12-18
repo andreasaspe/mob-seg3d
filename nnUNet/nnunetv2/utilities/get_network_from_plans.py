@@ -51,15 +51,16 @@ def get_network_from_plans(arch_class_name, arch_kwargs, arch_kwargs_req_import,
     filename = f"info_dict_{dataset_name_or_id}.pkl"
     path = project_root / filename
 
-    try:
-        with open(path, "wb") as handle:
-            pickle.dump(info_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
-            print(f"Info_dict saved at: {path}")
-    except Exception as e:
-        print("info_dict didn't save correctly.")
-        print(f"Attempted path: {path}")
-        print(f"File: {__file__}")
-        raise e
+    if dataset_name_or_id is not None:
+        try:
+            with open(path, "wb") as handle:
+                pickle.dump(info_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
+                print(f"Info_dict saved at: {path}")
+        except Exception as e:
+            print("info_dict didn't save correctly.")
+            print(f"Attempted path: {path}")
+            print(f"File: {__file__}")
+            raise e
     
 
     if hasattr(network, 'initialize') and allow_init:
