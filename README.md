@@ -93,7 +93,7 @@ This step produces a dataset-specific metadata file:
 
     info_dict_<dataset_id>.pkl
 
-The file is saved automatically to the project root and is required for the stochastic models.
+The file is saved automatically to the project root (/.../mog-seg3d/) and is required for the stochastic models.
 
 ---
 
