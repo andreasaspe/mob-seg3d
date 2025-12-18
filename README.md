@@ -99,8 +99,3 @@ Monte-Carlo inference is used to compute predictive variance from the stochastic
 (Details to be added.)
 
 ---
-
-## Notes
-
-- Paths are provided via command-line arguments or environment variables.  
-- No source code modification is required to run the scripts.
