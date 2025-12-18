@@ -1,50 +1,106 @@
 # mob-seg3d
 
-In order to use this code, you also need to take all the required installation steps required by the original nnUNet code. More information can be found here: https://github.com/MIC-DKFZ/nnUNet/blob/master/documentation/installation_instructions.md. Below is an explicit guide which should get you started by following the same steps as was done in the paper:
+This repository implements **Mixture-of-Bases** and **Single-Basis** covariance models for uncertainty-aware 3D medical image segmentation on top of **nnU-Net v2**, as described in our NLDL paper.
 
-- Install Pytorch. Can be downloaded here: https://pytorch.org/get-started/locally/. The original nnUNet-repo recommends installing the latest version with support for your hardware (cuda, mps, cpu). The code for the NLDL submission was using version 2.8.0 and Cuda 12.8 and Python 3.13.5.
-- Navigate to the nnUNet folder by 'cd nnUNet' and install the editable package by 'pip install -e .'
+The code builds directly on the official nnU-Net implementation:
+https://github.com/MIC-DKFZ/nnUNet
 
-# Step 0: Download the data
-The TotalSegmentator dataset can be downloaded here:
+All credit for the base framework belongs to the nnU-Net authors. This repository introduces targeted modifications and extensions to support structured covariance modeling and stochastic segmentation. Installation details and general usage of nnU-Net are documented in the original repository; below we provide an explicit guide describing the exact steps used in the paper.
+
+---
+
+## Installation
+
+Install PyTorch following the official instructions:
+https://pytorch.org/get-started/locally/
+
+The experiments in the paper were run with:
+- PyTorch 2.8.0  
+- CUDA 12.8  
+- Python 3.13.5  
+
+Install this modified nnU-Net version in editable mode:
+
+    cd mob-seg3d/nnUNet
+    pip install -e .
+
+---
+
+
+## Step 0: Download the data
+
+Download the TotalSegmentator dataset from Zenodo:  
 https://zenodo.org/records/10047292
 
-# Step 1: Training the deterministic nnUNet
+After extraction, the dataset should contain subject folders `sXXXX/` with `ct.nii.gz` and a `segmentations/` subfolder.
 
-First you have prepare the totalsegmentator dataset and put it into the right format for the nnUNet dataset.
+---
 
-This can be done by the script prepare_totalseg.py:
-python prepare_totalseg.py \
-  --base_dir /data/Totalsegmentator_dataset_v201 \
-  --nnunet_raw /data/nnUNet_raw \
-  --organ Pancreas \
-  --dataset_id 1
+## Step 1: Train a deterministic nnU-Net
 
-You can then setup training of the nnUNet according to the original authors. Below is a describtion of how it was done for this paper:
+### Prepare the dataset
 
-Following the nnUNet required data structure you'll have to define the following environment variables:
+Convert the TotalSegmentator dataset to nnU-Net format using:
 
-export nnUNet_raw="PATH-TO-DATASET/nnUNet_raw"
-export nnUNet_preprocessed="PATH-TO-DATASET/nnUNet_preprocessed"
-export nnUNet_results="PATH-TO-DATASET/nnUNet_results"
+    python prepare_totalseg.py \
+      --base_dir /path/to/Totalsegmentator_dataset_v201 \
+      --nnunet_raw /path/to/nnUNet_raw \
+      --organ Pancreas \
+      --dataset_id 1
+
+This creates:
+
+    nnUNet_raw/Dataset001_TotalSegmentatorPancreas/
+
+### Set nnU-Net environment variables
+
+    export nnUNet_raw=/path/to/nnUNet_raw
+    export nnUNet_preprocessed=/path/to/nnUNet_preprocessed
+    export nnUNet_results=/path/to/nnUNet_results
+
+### Run nnU-Net
 
 Extract dataset fingerprint:
-nnUNetv2_extract_fingerprint -d <dataset_id> -verify_dataset_integrity -verbose -pl nnUNetPlannerResEncL -c 3d_fullres
+
+    nnUNetv2_extract_fingerprint -d <dataset_id> -verify_dataset_integrity -pl nnUNetPlannerResEncL -c 3d_fullres
 
 Plan the experiment:
-nnUNetv2_plan_experiment -d <dataset_id> -c 3d_fullres -pl nnUNetPlannerResEncL -np 4
 
-Preprocess the Dataset:
-nnUNetv2_preprocess -d <dataset_id> -c 3d_fullres -pl nnUNetResEncUNetLPlans -np 8
+    nnUNetv2_plan_experiment -d <dataset_id> -c 3d_fullres -pl nnUNetPlannerResEncL -np 4
 
-Train the model (choose a fold)
-nnUNetv2_train <dataset_id> 3d_fullres <fold> -tr nnUNetTrainerNoMirroring -p nnUNetResEncUNetLPlans
+Preprocess the dataset:
 
-The model will not 
+    nnUNetv2_preprocess -d <dataset_id> -c 3d_fullres -pl nnUNetResEncUNetLPlans -np 8
 
+Train the model (choose a fold):
 
-# Step 2: Training the stochastic nnUNet
+    nnUNetv2_train <dataset_id> 3d_fullres <fold> -tr nnUNetTrainerNoMirroring -p nnUNetResEncUNetLPlans
 
+This step produces a dataset-specific metadata file:
 
+    info_dict_<dataset_id>.pkl
 
-# Step 3: Get predictive variance
+The file is saved automatically to the project root and is required for the stochastic models.
+
+---
+
+## Step 2: Train the stochastic nnU-Net
+
+Training the **Single-Basis** and **Mixture-of-Bases** models uses the trained deterministic nnU-Net and the generated `info_dict_<dataset_id>.pkl`.
+
+(Details to be added.)
+
+---
+
+## Step 3: Predictive uncertainty
+
+Monte-Carlo inference is used to compute predictive variance from the stochastic models.
+
+(Details to be added.)
+
+---
+
+## Notes
+
+- Paths are provided via command-line arguments or environment variables.  
+- No source code modification is required to run the scripts.
