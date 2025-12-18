@@ -2,6 +2,11 @@
 
 This repository implements **Mixture-of-Bases** and **Single-Basis** covariance models for uncertainty-aware 3D medical image segmentation on top of **nnU-Net v2**, as described in our NLDL paper.
 
+<p align="center">
+  <img src="figures/mob_architecture.png" width="700"><br>
+  <em>Figure 1: Figure 1: Overview of the Mixture-of-Bases (MoB) model.</em>
+</p>
+
 The code builds directly on the official nnU-Net implementation:
 https://github.com/MIC-DKFZ/nnUNet
 
