@@ -112,7 +112,7 @@ Training the **Single-Basis** and **Mixture-of-Bases** models uses the trained d
 
 ---
 
-## Step 3: Predictive uncertainty
+## Step 3: Predictive variance
 
 Monte-Carlo inference is used to compute predictive variance from the stochastic models.
 
