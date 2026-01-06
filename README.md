@@ -10,6 +10,8 @@ This repository implements **Mixture-of-Bases** and **Single-Basis** covariance 
 The code builds directly on the official nnU-Net implementation:
 https://github.com/MIC-DKFZ/nnUNet
 
+*Isensee, F., Jaeger, P. F., Kohl, S. A., Petersen, J., & Maier-Hein, K. H. (2021). "nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation." Nature methods, 18(2), 203-211.*
+
 All credit for the base framework belongs to the nnU-Net authors. This repository introduces targeted modifications and extensions to support structured covariance modeling and stochastic segmentation. Installation details and general usage of nnU-Net are documented in the original repository; below we provide an explicit guide describing the exact steps used in the paper.
 
 ---
@@ -110,7 +112,7 @@ Training the **Single-Basis** and **Mixture-of-Bases** models uses the trained d
 
 ---
 
-## Step 3: Predictive uncertainty
+## Step 3: Predictive variance
 
 Monte-Carlo inference is used to compute predictive variance from the stochastic models.
 
