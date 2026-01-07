@@ -116,11 +116,3 @@ Hyperparameters for training is set in the dict `TRAINING_KWARGS` in `src/traine
     python trainer.py --outdir /scratch/pjtka/mob-segref-test --dataset pancreas --exp_type multi_basis  --exp_name <name-of-experiment> --recreate True
 
 ---
-
-## Step 3: Predictive variance
-
-Monte-Carlo inference is used to compute predictive variance from the stochastic models.
-
-(Details to be added.)
-
----
