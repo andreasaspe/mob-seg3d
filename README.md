@@ -108,7 +108,12 @@ The file is saved automatically to the project root (/.../mog-seg3d/) and is req
 
 Training the **Single-Basis** and **Mixture-of-Bases** models uses the trained deterministic nnU-Net and the generated `info_dict_<dataset_id>.pkl`.
 
-(Details to be added.)
+Use `src/trainer.py` to continue training the models. Insert relevant paths on your device in `DATASET_TO_PATHS` and `DATASET_TO_PATHS`.
+To recreate the results of the main results from the paper, when running `src/triainer.py` use either `--exp_type basic` or `--exp_type multi_basis`. 
+
+Hyperparameters for training is set in the dict `TRAINING_KWARGS` in `src/trainer.py`. To run mixture-of-bases on the pancreas dataset use
+
+    python trainer.py --outdir /scratch/pjtka/mob-segref-test --dataset pancreas --exp_type multi_basis  --exp_name <name-of-experiment> --recreate True
 
 ---
 
