@@ -24,9 +24,11 @@ https://pytorch.org/get-started/locally/
 The experiments in the paper were run with:
 - PyTorch 2.8.0  
 - CUDA 12.8  
-- Python 3.13.5  
+- Python 3.13.5
 
-Install this modified nnU-Net version in editable mode:
+Clone this repo
+
+Navigate to the toe nnUNet folder in the repo and install this modified nnU-Net version in editable mode:
 
     cd mob-seg3d/nnUNet
     pip install -e .
