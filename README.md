@@ -26,7 +26,7 @@ The experiments in the paper were run with:
 - CUDA 12.8  
 - Python 3.13.5
 
-Clone this repo
+Clone this repo.
 
 Navigate to the toe nnUNet folder in the repo and install this modified nnU-Net version in editable mode:
 
